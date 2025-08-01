@@ -17,7 +17,17 @@ def main():
 
         result = vaakya_sandhi(string)
 
-        st.write(result[0])
+        with st.container(border=True):
+            st.write("### Processed Sentence:")
+            st.write(result[0])
+
+        with st.expander("View Sandhi Summary"):
+            st.write("This is the sandhi summary.")
+            st.write(result[1])
+
+        with st.expander("View Prakriya"):
+            st.write("This is the prakriya.")
+            st.write(result[2])
 
 
 if __name__ == "__main__":

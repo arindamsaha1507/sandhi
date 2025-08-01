@@ -218,7 +218,7 @@ def vaakya_sandhi(sentence: str):
     # print(get_shabda(ee2))
 
     ee = get_shabda(ee)
-    print(ee)
+    # print(ee)
 
     # qaz.write(get_shabda(ee1) + "\n")
     # qaz.write(get_shabda(ee2) + "\n\n")
