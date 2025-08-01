@@ -179,22 +179,22 @@ def vaakya_sandhi(sentence: str):
     elif len(mm) > 0:
         # Process the last word if it wasn't handled
         last_word = mm[-1]
-        if last_word not in avasaana and not any(
-            last_word.endswith(av) for av in avasaana if av != " "
-        ):
-            # If the last word doesn't end with punctuation, add it
-            dd.extend(get_vinyaasa(last_word))
-            dd.append(" ")
-        elif any(last_word.endswith(av) for av in avasaana if av != " "):
-            # If the last word ends with punctuation, separate it
-            for av in avasaana:
-                if av != " " and last_word.endswith(av):
-                    word_part = last_word[: -len(av)]
-                    if word_part:
-                        dd.extend(get_vinyaasa(word_part))
-                        dd.append(" ")
-                    dd.append(av)
-                    break
+        # Only process if the last word is not standalone punctuation (which would have been handled in main loop)
+        if last_word not in avasaana:
+            if not any(last_word.endswith(av) for av in avasaana if av != " "):
+                # If the last word doesn't end with punctuation, add it
+                dd.extend(get_vinyaasa(last_word))
+                dd.append(" ")
+            else:
+                # If the last word ends with punctuation, separate it
+                for av in avasaana:
+                    if av != " " and last_word.endswith(av):
+                        word_part = last_word[: -len(av)]
+                        if word_part:
+                            dd.extend(get_vinyaasa(word_part))
+                            dd.append(" ")
+                        dd.append(av)
+                        break
 
     ee = [dd[0]]
 
@@ -211,29 +211,32 @@ def vaakya_sandhi(sentence: str):
 
     ee.append(dd[-1])
 
-    # ii = ee.index("।")
-    # ee1 = ee[: ii + 1]
-    # ee2 = ee[ii + 1 :]
-    # print(get_shabda(ee1))
-    # print(get_shabda(ee2))
+    # Ensure punctuation marks । and ॥ are surrounded by spaces on both sides
+    punctuation_marks = ["।", "॥"]
+    i = 0
+    while i < len(ee):
+        if ee[i] in punctuation_marks:
+            # Check if there's no space before the punctuation
+            if i > 0 and ee[i - 1] != " ":
+                ee.insert(i, " ")
+                i += 1  # Adjust index after insertion
+            # Check if there's no space after the punctuation
+            if i < len(ee) - 1 and ee[i + 1] != " ":
+                ee.insert(i + 1, " ")
+                i += 1  # Adjust index after insertion
+        i += 1
 
     ee = get_shabda(ee)
-    # print(ee)
-
-    # qaz.write(get_shabda(ee1) + "\n")
-    # qaz.write(get_shabda(ee2) + "\n\n")
-
-    # print(prakriya)
-    # print(sandhi_summary)
 
     prakriya.to_csv("prakriya.csv", index=False)
     sandhi_summary.to_csv("sandhi_summary.csv", index=False)
-
-    # qaz.close()
 
     return [ee, sandhi_summary, prakriya]
 
 
 if __name__ == "__main__":
 
-    vaakya_sandhi("अत्र आगतः अस्मि शिवः अहम् ।")
+    result = vaakya_sandhi("अत्र आगतः अस्मि शिवः अहम् ।")
+    print(result[0])
+    print(result[1])
+    print(result[2])
