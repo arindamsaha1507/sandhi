@@ -211,9 +211,9 @@ def vaakya_sandhi(sentence: str):
 
     ee.append(dd[-1])
 
-    ii = ee.index("।")
-    ee1 = ee[: ii + 1]
-    ee2 = ee[ii + 1 :]
+    # ii = ee.index("।")
+    # ee1 = ee[: ii + 1]
+    # ee2 = ee[ii + 1 :]
     # print(get_shabda(ee1))
     # print(get_shabda(ee2))
 
