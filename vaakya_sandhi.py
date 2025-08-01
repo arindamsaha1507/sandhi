@@ -26,12 +26,13 @@ def vaakya_sandhi(sentence: str):
     for ii in range(len(mm) - 1):
 
         primary = mm[ii]
-        if primary[-1] == "ः":
-            primary = get_shabda(get_vinyaasa(primary[:-1] + "स्"))
 
         if flag == 1:
             flag = 0
             primary = temp
+
+        if primary[-1] == "ः":
+            primary = get_shabda(get_vinyaasa(primary[:-1] + "स्"))
 
         if primary in avasaana:
             continue
@@ -213,8 +214,8 @@ def vaakya_sandhi(sentence: str):
     ii = ee.index("।")
     ee1 = ee[: ii + 1]
     ee2 = ee[ii + 1 :]
-    print(get_shabda(ee1))
-    print(get_shabda(ee2))
+    # print(get_shabda(ee1))
+    # print(get_shabda(ee2))
 
     ee = get_shabda(ee)
     print(ee)
@@ -222,8 +223,8 @@ def vaakya_sandhi(sentence: str):
     # qaz.write(get_shabda(ee1) + "\n")
     # qaz.write(get_shabda(ee2) + "\n\n")
 
-    print(prakriya)
-    print(sandhi_summary)
+    # print(prakriya)
+    # print(sandhi_summary)
 
     prakriya.to_csv("prakriya.csv", index=False)
     sandhi_summary.to_csv("sandhi_summary.csv", index=False)
@@ -235,4 +236,4 @@ def vaakya_sandhi(sentence: str):
 
 if __name__ == "__main__":
 
-    vaakya_sandhi("रामः वनम् गच्छति । सीता च वनम् गच्छति ।")
+    vaakya_sandhi("अत्र आगतः अस्मि शिवः अहम् ।")
