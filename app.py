@@ -17,7 +17,7 @@ def main():
 
         result = vaakya_sandhi(string)
 
-        st.write(result)
+        st.write(result[0])
 
 
 if __name__ == "__main__":
