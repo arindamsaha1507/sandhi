@@ -1,16 +1,12 @@
 """Main streamlit app."""
 
-
 import streamlit as st
 
-from sandhi import VarnaSandhi, VisargaSandhi
+from vaakya_sandhi import vaakya_sandhi
 
 
 def main():
     """Main function of the App."""
-
-    varna_sandhi = VarnaSandhi()
-    visaarga_sandhi = VisargaSandhi()
 
     st.title("Hello World")
     st.write("This is a test to see if streamlit works.")
@@ -19,15 +15,7 @@ def main():
 
     if st.button("Submit"):
 
-        words = string.split(" ")
-
-        result = words[0]
-
-        for index in range(1, len(words)):
-            if result[-1] == "ः":
-                result = visaarga_sandhi.sandhi(result, words[index])
-            else:
-                result = varna_sandhi.sandhi(result, words[index])
+        result = vaakya_sandhi(string)
 
         st.write(result)
 
